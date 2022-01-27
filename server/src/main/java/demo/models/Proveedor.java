@@ -37,5 +37,8 @@ public class Proveedor {
 
     @Column("detalle_proveedor")
     private String detalle;
+
+    @Column("estado_proveedor")
+    private String estado;
     
 }
