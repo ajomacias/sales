@@ -18,5 +18,5 @@ public class CategoriaProveedor {
     private String nombre;
 
     @Column("detalle_categoriaproveedor")
-    private String categoria;
+    private String detalle;
 }
