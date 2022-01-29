@@ -12,6 +12,6 @@ The rest api developed with SpringBoot and fronted with react.
 #### Days of life of app development and percentage of progress :
 
 development days: 1 <br />
-percentage progress: 1.2% <br />
+percentage progress: 1.4% <br />
 <br />
 the project under development is in the develop branch
