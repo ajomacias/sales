@@ -11,10 +11,10 @@ import lombok.Data;
 public class Proveedor {
 
     @Id
-    @Column("id_Proveedor")
+    @Column("id_proveedor")
     private Integer id;
 
-    @Column("id_categoria_proveedores")
+    @Column("id_categoria_proveedor")
     private Integer categoriaId;
 
     @Column("cedula_proveedor")

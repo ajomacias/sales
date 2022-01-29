@@ -22,8 +22,15 @@ public class CategoriaProveedorService {
         return categoriaProveedorRepository.findById(id).get();
     }
 
-    public void deleteCategoryById(Integer id) {
-        categoriaProveedorRepository.deleteById(id);
+    public Boolean deleteCategoryById(Integer id) {
+
+        if (categoriaProveedorRepository.existsById(id)) {
+            categoriaProveedorRepository.deleteById(id);
+            return true;
+        }
+
+        return false;
+
     }
 
     public CategoriaProveedor saveCategoryAndUpdate(CategoriaProveedor categoria) {
