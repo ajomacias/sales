@@ -1,32 +1,41 @@
 package demo.models;
 
-import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Entity;
 
 import lombok.Data;
 
 @Data
-@Table("productos")
+@Entity
+@Table(name="productos", uniqueConstraints={
+    @UniqueConstraint(columnNames = {"nombre_producto",}),
+    @UniqueConstraint(columnNames = {"detalle_producto"})
+})
 public class Producto {
     
-    @Id
-    @Column("id_producto")
-    private Integer Id;
+    @Id()
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id_producto")
+    private Long Id;
 
-    @Column("id_proveedor")
+    @Column(name="id_proveedor", nullable = false)
     private Integer proveedorId;
 
-    @Column("nombre_producto")
+    @Column(name="nombre_producto", nullable = false)
     private String nombre;
 
-    @Column("detalle_producto")
+    @Column(name="detalle_producto", nullable = false)
     private String detalle;
 
-    @Column("precio_producto")
+    @Column(name="precio_producto", nullable = false)
     private Double precio;
 
-    @Column("stock_producto")
+    @Column(name="stock_producto", nullable = true)
     private Integer stock;
    
 }

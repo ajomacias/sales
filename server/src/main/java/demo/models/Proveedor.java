@@ -1,44 +1,59 @@
 package demo.models;
 
-import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.UniqueConstraint;
+import javax.persistence.Entity;
 
 import lombok.Data;
 
 @Data
-@Table("proveedores")
+@Entity
+@Table(name = "proveedores", uniqueConstraints={
+    @UniqueConstraint(columnNames = { "nombre_proveedor" }),
+    @UniqueConstraint(columnNames = { "cedula_proveedor" }),
+    @UniqueConstraint(columnNames = { "telefono_proveedor" }),
+    @UniqueConstraint(columnNames = { "email_proveedor" }),
+    @UniqueConstraint(columnNames = { "cuenta_proveedor" })
+
+})
 public class Proveedor {
 
     @Id
-    @Column("id_proveedor")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_proveedor")
+    private Long id;
 
-    @Column("id_categoria_proveedor")
+    @Column(name="id_categoriaproveedor", nullable=false)
     private Integer categoriaId;
 
-    @Column("cedula_proveedor")
+    @Column(name="nombre_proveedor", nullable = false)
+    private String nombre;
+
+    @Column(name = "cedula_proveedor",nullable = false)
     private String cedula;
 
-    @Column("direccion_proveedor")
+    @Column(name="direccion_proveedor", nullable = false)
     private String direccion;
 
-    @Column("telefono_proveedor")
+    @Column(name="telefono_proveedor", nullable = false)
     private String telefono;
 
-    @Column("email_proveedor")
+    @Column(name="email_proveedor", nullable = false)
     private String email;
 
-    @Column("banco_proveedor")
+    @Column(name="banco_proveedor", nullable = false)
     private String banco;
 
-    @Column("cuenta_proveedor")
+    @Column(name="cuenta_proveedor", nullable = false)
     private String cuenta;
 
-    @Column("detalle_proveedor")
+    @Column(name="detalle_proveedor", nullable = false)
     private String detalle;
 
-    @Column("estado_proveedor")
+    @Column(name="estado_proveedor", nullable = false)
     private String estado;
-    
 }

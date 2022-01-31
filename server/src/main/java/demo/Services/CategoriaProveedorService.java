@@ -33,6 +33,11 @@ public class CategoriaProveedorService {
 
     }
 
+    public boolean verifyCategorySupplierId(Integer id){
+        return categoriaProveedorRepository.existsById(id);
+
+    }
+
     public CategoriaProveedor saveCategoryAndUpdate(CategoriaProveedor categoria) {
         return categoriaProveedorRepository.save(categoria);
     }

@@ -1,5 +1,7 @@
 package demo.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import demo.Services.CategoriaProveedorService;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.conversion.DbActionExecutionException;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("api/categoriaProveedor")
 public class CategoriaProveedorController {
 
-    @Autowired()
+    @Autowired
     CategoriaProveedorService categoriaProveedorService;
 
     @GetMapping("/getAll")
@@ -34,37 +35,33 @@ public class CategoriaProveedorController {
     }
 
     @GetMapping("/getById/{id}")
-    public CategoriaProveedor getCategorySupplierByIdController(@PathVariable Integer id) {
-        return categoriaProveedorService.getCategoryById(id);
+    public ResponseEntity<?> getCategorySupplierByIdController(@PathVariable Integer id) {
+        CategoriaProveedor categoriaProveedor = categoriaProveedorService.getCategoryById(id);
+        return new ResponseEntity<>(categoriaProveedor,HttpStatus.OK);
     }
 
-    @PostMapping("/setProveedor")
-    public CategoriaProveedor setCategorySupplierController(@RequestBody CategoriaProveedor categoria) {
-        return categoriaProveedorService.saveCategoryAndUpdate(categoria);
+    @PostMapping("/setCategoria")
+    public ResponseEntity<?> setCategorySupplierController(@RequestBody CategoriaProveedor categoria) {
+
+            return new ResponseEntity<>(categoriaProveedorService.saveCategoryAndUpdate(categoria),HttpStatus.OK);
     }
 
-    @PutMapping("/updateProveedor")
-    public CategoriaProveedor updateCategorySupplierController(@RequestBody CategoriaProveedor categoria, HttpServletResponse response) {
-        CategoriaProveedor categoriaProveedor = new CategoriaProveedor(); 
-        try{
-            categoriaProveedor = categoriaProveedorService.saveCategoryAndUpdate(categoria);
-        }catch(DbActionExecutionException err){
-            response.setStatus(500);
-            errorController(err);
-        }
+    @PutMapping("/updateCategoria")
+    public ResponseEntity<?> updateCategorySupplierController(@RequestBody CategoriaProveedor categoria, HttpServletResponse response) {
 
-        return categoriaProveedor;
+        CategoriaProveedor categoriaProveedor = categoriaProveedorService.saveCategoryAndUpdate(categoria);
+        return new ResponseEntity<>(categoriaProveedor,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public String[] deleteCategorySupplierController(@PathVariable Integer id) 
+    public ResponseEntity<?> deleteCategorySupplierController(@PathVariable Integer id)
     {
-        String[] lol = {String.valueOf(categoriaProveedorService.deleteCategoryById(id))};
-        return lol;
-    }
+        boolean lol = categoriaProveedorService.deleteCategoryById(id);
 
-    private Exception errorController(Exception err){
-        return err;
+        if(!lol){
+            throw new RuntimeException("no se encontro el id de el usuario");
+        }
+        return new ResponseEntity<>("Se elimino la categoria",HttpStatus.OK);
     }
 
 }

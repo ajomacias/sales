@@ -10,8 +10,10 @@ const client = new Client({
 });
 
 client.connect()
-    client.query(tables)
-console.log("Se crearon las tablas correctamente")
+    tables.map((item)=>{
+        client.query(item.sql);
+        console.log(item.sql);
+    })
     
 }catch(err){
     console.log(err)

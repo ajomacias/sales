@@ -35,4 +35,8 @@ public class ProveedorService {
 
     }
 
+    public Proveedor setProveedor(Proveedor proveedor){
+        return  proveedorRepository.save(proveedor);
+    }
+
 }
