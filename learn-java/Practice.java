@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Errores{
+public class Practice{
   private static Scanner entradaPorTeclado = new Scanner(System.in);
  
   public static void main(String[] args)
