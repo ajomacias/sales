@@ -16,6 +16,25 @@ public class OperadoresAritmeticos {
         a/=b; //a->6
         a%=b; //a->0
 
+        //Operadores de decremento y incremento
+
+        int d, e;
+        d = 0;
+        e = 0;
+
+        d++;
+        d++;
+        e++;
+        e++;
+        d--;
+        e--;
+        e++;//se incrementa despues de la ejecucion post incremento
+        ++e;//se incrementa en la ejecucion Pre incremento
+
+        System.out.println("d: " +d + " e: "+e);
+
+
+
     }
     
 }
