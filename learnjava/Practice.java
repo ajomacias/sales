@@ -18,5 +18,6 @@ public class Practice{
       System.out.println("Ups te has equivocado tienes "+i+" intentos mas");
        
      }
+    
   }
 }
