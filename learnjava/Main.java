@@ -1,4 +1,4 @@
-public class Main {
+public class Practiva {
 
     public static void main(String[] args){
         System.out.println("Hola mundo");

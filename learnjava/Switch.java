@@ -18,5 +18,4 @@ public class Switch {
             System.out.printf("el numero %d es meyor que 3", n);
         }
     }
-    
 }
