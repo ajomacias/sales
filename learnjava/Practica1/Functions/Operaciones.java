@@ -1,8 +1,11 @@
 package Functions;
+import java.text.DecimalFormat;
 
 public interface Operaciones {
 
     static Double obtenerPromedio(Double... notas ){
+
+        DecimalFormat formato = new DecimalFormat("##.##");
 
         var notaTotal = 0d;
         int o = 0;
@@ -12,8 +15,7 @@ public interface Operaciones {
             o++;
         }
 
-        return (notaTotal/notas.length);
-
+        return Double.valueOf(formato.format(notaTotal/notas.length).replace(",", "."));
+        
     }
-
 }

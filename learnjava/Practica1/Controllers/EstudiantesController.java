@@ -65,34 +65,13 @@ public class EstudiantesController {
 
     public void imprimirEstudiantes(){
 
-        for(Integer index : s.keySet()){
-            System.out.println(index +"==>"+ s.get(index));
+        for(Entry<Integer, Estudiante> entry : s.entrySet()){
+
+            System.out.printf(" %d==> %s %s\n",entry.getKey(),(entry.getValue().getNombre() +" "+ entry.getValue().getApellido()) ,
+            String.valueOf(Operaciones.obtenerPromedio(entry.getValue().getNotas())));
             
         }
-
-        System.out.println();
-
-        Iterator<Integer> entries = s.keySet().iterator();
-
-        while(entries.hasNext()){
-            System.out.println(entries.next()+"==>"+s.get(entries.next()));
-        }
-
-        System.out.println();
-        Iterator<Entry<Integer, Estudiante>> entriees = s.entrySet().iterator();
-        while(entriees.hasNext()){
-            Entry<Integer, Estudiante> entry = entriees.next();
-            System.out.println(entry.getKey()+"==>"+ entry.getValue());
-        }
-
-        System.out.println();
         
-        for( Iterator<Entry<Integer, Estudiante>> entrieees = s.entrySet().iterator(); entrieees.hasNext(); ){
-            Entry<Integer, Estudiante> entry = entrieees.next();
-            System.out.println(entry.getKey() +"==>"+entry.getValue().getNombre()+" "+entry.getValue().getApellido());
-            System.out.printf("Promedio: %f\n", Operaciones.obtenerPromedio(entry.getValue().getNotas()));
-        }
-
     }
 
 }

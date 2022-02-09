@@ -11,7 +11,7 @@ public class Sumar {
         System.out.print("Ingrese numero2: ");
         numero2 = entradaPorTeclado.nextInt();
 
-        resultado = Math.abs(numero1) + Math.abs(numero2);
+        resultado = MathMethods.abs(numero1) + MathMethods.abs(numero2);
 
         System.out.println("El resultado es= " +resultado );
         System.out.println("--------------suma-----------------");
