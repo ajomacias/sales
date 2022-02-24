@@ -1,7 +1,6 @@
 package mapas.Models;
 
 import java.util.Map;
-import mapas.Models.Familiar;
 
 public class Persona {
     String nombre;
