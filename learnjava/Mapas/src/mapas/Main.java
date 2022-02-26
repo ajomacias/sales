@@ -6,6 +6,8 @@ public class Main {
     {
         PersonaController personaController = new PersonaController();
         personaController.setPersonasMap();
+        personaController.imprimirPersonas();
+       
     }
     
 }

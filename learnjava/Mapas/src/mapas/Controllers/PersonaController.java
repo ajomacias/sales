@@ -2,10 +2,11 @@ package mapas.Controllers;
 
 import mapas.Models.Familiar;
 import mapas.Models.Persona;
-import java.util.*;
+
+import java.util.*; 
 
 public class PersonaController {
-    private Map<Integer, Persona> personasMap = new HashMap<>();
+    Map<Integer, Persona> personasMap = new HashMap<>();
     Scanner entrada = new Scanner(System.in);
 
     public Map<Integer, Persona> getPersonasMap() {
@@ -36,10 +37,10 @@ public class PersonaController {
 
             if(ingFamiliar){
                 persona.setFamiliares(getInfoFamily());
-                personasMap.put(count, persona);
+                this.personasMap.put(count, persona);
                 count++;
             }else{
-                personasMap.put(count, persona);
+                this.personasMap.put(count, persona);
                 count++;
             }
         }
@@ -59,25 +60,54 @@ public class PersonaController {
     private Map<Integer, Familiar> getInfoFamily(){
         int count=0;
         Map<Integer, Familiar> mapFamily = new HashMap<Integer,Familiar>();
-        Familiar familiar = new Familiar();
+        
         System.out.println("--------Ingresar Familiar--------");
 
         while(true){
-
+            Familiar familiar = new Familiar();
             System.out.print("Ingrese el nombre del familiar: ");
             familiar.setNombre(entrada.nextLine());
             System.out.println("Que es para usted este familiar: ");
             familiar.setqueEs(entrada.nextLine());
             System.out.println("¿Desea ingresar mas familiares? SI NO por default no!!: ");
-            boolean confirm = (entrada.nextLine().toUpperCase().equalsIgnoreCase("SI")) ?true:false;
-            if(!confirm) break;
-
             mapFamily.put(count, familiar);
             count++;
+            boolean confirm = (entrada.nextLine().toUpperCase().equalsIgnoreCase("SI")) ?true:false;
+            
+            if(!confirm) break;
         }
 
         return mapFamily;
         
     }
-    
+
+    public void imprimirPersonas(){
+        System.out.println("---------------------------------");
+        for(Persona entry : this.personasMap.values()){
+          if(entry==null) continue;
+         
+            System.out.println("-------------"+entry.getNombre()+"-----------");
+            System.out.printf("Nombre: %s \n",entry.getNombre());
+            System.out.printf("Edad: %s \n",entry.getEdad());
+            System.out.printf("Sexo: %s \n",entry.getGenero());
+            imprimirFamiliares(entry.getFamiliares());
+            System.out.println("-------------"+entry.getNombre()+"-----------");
+          
+        }
+    }
+
+    private boolean imprimirFamiliares(Map<Integer,Familiar> familiares){
+        System.out.println("------------Familiares--------------");
+        for(Familiar f : familiares.values()){
+
+            if(f==null)continue;
+            
+            System.out.println("..........");
+            System.out.printf("Nombre: %s\n",f.getNombre());
+            System.out.printf("Vinculo: %s\n",f.getVinculo());
+        }
+        System.out.println("------------Familiares--------------");
+        return true;
+        
+    }
 }
