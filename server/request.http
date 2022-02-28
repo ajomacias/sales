@@ -1,1 +1,15 @@
-DELETE http://localhost:8888/api/categoriaProveedor/delete/13
+#####
+GET http://localhost:8888/api/catalogos
+
+#####
+DELETE http://localhost:8888/api/catalogos/delete/8
+
+#####
+POST http://localhost:8888/api/catalogos/create
+Content-Type:application/json
+
+{
+    "codigo":"PRUB2",
+    "valor":"api",
+    "tipo":"prueba_dev"
+}
