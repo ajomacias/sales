@@ -15,7 +15,6 @@ public class Succes {
         stb.append("\"message\":").append('"'+this.message+'"');
         stb.append("\n}");
         return stb.toString();
-    
     }
     
 }
