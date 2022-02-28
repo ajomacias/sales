@@ -1,8 +1,5 @@
 package demo.exception;
 
-import org.checkerframework.checker.units.qual.m2;
-import org.checkerframework.checker.units.qual.s;
-
 public class Succes {
     private String message;
     
