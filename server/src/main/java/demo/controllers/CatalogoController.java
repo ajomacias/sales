@@ -37,5 +37,10 @@ public class CatalogoController {
         .format("Se elimino la categoria con id: %s", id)).toString(),HttpStatus.OK);
 
     }
+    @GetMapping("/c/{c}")
+    public List<CatalogoDTO> obtenerCatalogoPorTipo(@PathVariable(name="c") String tipo)
+    {
+        return catalogoServiceImp.obtenerCatalogosPorTipos(tipo);
+    }
     
 }

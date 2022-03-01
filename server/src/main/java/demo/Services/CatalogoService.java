@@ -15,4 +15,6 @@ public interface CatalogoService {
 
     public void eliminarCatalogoPorId(Long id);
 
+    public List<CatalogoDTO> obtenerCatalogosPorTipos(String tipo);
+
 }

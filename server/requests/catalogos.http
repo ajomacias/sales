@@ -2,6 +2,8 @@
 GET http://localhost:8888/api/catalogos
 
 #####
+GET http://localhost:8888/api/catalogos/c/prueba_sql
+#####
 DELETE http://localhost:8888/api/catalogos/delete/8
 
 #####
@@ -9,7 +11,7 @@ POST http://localhost:8888/api/catalogos/create
 Content-Type:application/json
 
 {
-    "codigo":"PRUB2",
-    "valor":"api",
-    "tipo":"prueba_dev"
+    "codigo":"PRUBSQ1",
+    "valor":"borrado temporal",
+    "tipo":"prueba_sql"
 }

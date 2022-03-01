@@ -35,23 +35,34 @@ public class CatalogoServiceImp implements CatalogoService {
     }
 
     @Override
-    public CatalogoDTO obtenerCatalogoPorId(Long id) {
+    public CatalogoDTO obtenerCatalogoPorId(Long id) 
+    {
         Catalogo catalogo = catalogoRepository.findById(id)
         .orElseThrow(()->new ResourceNotFoundException("Catalogo", "id", id));
         return mapearDto(catalogo);
     }
 
     @Override
-    public CatalogoDTO editarCatalogo(Long id, CatalogoDTO catalogoDTO) {
+    public CatalogoDTO editarCatalogo(Long id, CatalogoDTO catalogoDTO) 
+    {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void eliminarCatalogoPorId(Long id) {
+    public void eliminarCatalogoPorId(Long id) 
+    {
         catalogoRepository.findById(id)
         .orElseThrow(()-> new ResourceNotFoundException("catalogo", "id", id));
         catalogoRepository.deleteById(id);
+    }
+
+    @Override 
+    
+    public List<CatalogoDTO> obtenerCatalogosPorTipos(String tipo)
+    {
+        List<Catalogo> catalogos = catalogoRepository.getByType(tipo);
+        return catalogos.stream().map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
     }
 
     private CatalogoDTO mapearDto(Catalogo catalogo)
