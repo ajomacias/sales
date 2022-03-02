@@ -17,9 +17,6 @@ import lombok.Data;
 @Data
 public class Catalogo{
     @Id()
-    @Column(name="_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name="codigo",columnDefinition = "character varying",length = 140,nullable = false)
     private String codigo;
     @Column(name="valor",columnDefinition = "character varying",length = 40,nullable = false)

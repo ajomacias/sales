@@ -9,11 +9,11 @@ public interface CatalogoService {
 
     public List<CatalogoDTO> obtenerCatalogos();
 
-    public CatalogoDTO obtenerCatalogoPorId(Long id);
+    public CatalogoDTO obtenerCatalogoPorId(String id);
     
-    public CatalogoDTO editarCatalogo(Long id, CatalogoDTO catalogoDTO);
+    public CatalogoDTO editarCatalogo(String id, CatalogoDTO catalogoDTO);
 
-    public void eliminarCatalogoPorId(Long id);
+    public void eliminarCatalogoPorId(String id);
 
     public List<CatalogoDTO> obtenerCatalogosPorTipos(String tipo);
 

@@ -9,13 +9,21 @@ public class ResourceNotFoundException extends RuntimeException{
 
     private String nombreDelRecurso;
     private String nombreDelCampo;
-    private Long valorDelCampo;
+    private Long valorDelCampLong;
+    private String valorDelCampString;
 
     public ResourceNotFoundException(String nombreDelRecurso,String nombreDelCampo,Long id){
         super(String.format("%s no encontrad@ con : %s : %s",nombreDelRecurso,nombreDelCampo,id));
         this.nombreDelRecurso = nombreDelRecurso;
         this.nombreDelCampo = nombreDelCampo;
-        this.valorDelCampo = id;
+        this.valorDelCampLong = id;
+        
+    }
+    public ResourceNotFoundException(String nombreDelRecurso,String nombreDelCampo,String id){
+        super(String.format("%s no encontrad@ con : %s : %s",nombreDelRecurso,nombreDelCampo,id));
+        this.nombreDelRecurso = nombreDelRecurso;
+        this.nombreDelCampo = nombreDelCampo;
+        this.valorDelCampString = id;
         
     }
 
@@ -35,11 +43,15 @@ public class ResourceNotFoundException extends RuntimeException{
         this.nombreDelCampo = nombreDelCampo;
     }
 
-    public Long getValorDelCampo() {
-        return this.valorDelCampo;
+    public Long getValorDelCampoLong() {
+        return this.valorDelCampLong;
     }
 
     public void setValorDelCampo(Long valorDelCampo) {
-        this.valorDelCampo = valorDelCampo;
+        this.valorDelCampLong = valorDelCampo;
+    }
+
+    public String getValorDelCampoString() {
+        return this.valorDelCampString;
     }
 }

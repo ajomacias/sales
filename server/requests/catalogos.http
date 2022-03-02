@@ -2,7 +2,9 @@
 GET http://localhost:8888/api/catalogos
 
 #####
-GET http://localhost:8888/api/catalogos/c/prueba_sql
+GET http://localhost:8888/api/catalogos/c/prueba_api
+#####
+GET http://localhost:8888/api/catalogos/get/PRUBAP2
 #####
 DELETE http://localhost:8888/api/catalogos/delete/8
 
@@ -11,7 +13,15 @@ POST http://localhost:8888/api/catalogos/create
 Content-Type:application/json
 
 {
-    "codigo":"PRUBSQ1",
-    "valor":"borrado temporal",
-    "tipo":"prueba_sql"
+    "codigo":"PRUBAP2",
+    "valor":"api",
+    "tipo":"prueba_api"
+}
+####
+PUT  http://localhost:8888/api/catalogos/edit/PRUBAP2
+Content-Type: application/json
+
+{
+    "valor":"api",
+    "tipo":"prueba_api edit"
 }

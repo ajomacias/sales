@@ -3,7 +3,7 @@ package demo.Services;
 import demo.Dto.CatalogoDTO;
 import demo.Repository.CatalogoRepository;
 import demo.models.Catalogo;
-import demo.exception.ResourceNotFoundException;
+import demo.exception.*;
 
 import org.springframework.stereotype.Service;
 
@@ -20,10 +20,15 @@ public class CatalogoServiceImp implements CatalogoService {
     @Override
     public CatalogoDTO crearCatalogo(CatalogoDTO catalogoDTO)
     {
-        Catalogo catalogo = mapearEntidad(catalogoDTO);
-        Catalogo nuevoCatalogo = catalogoRepository.save(catalogo);
+        boolean exist = catalogoRepository.existsById(catalogoDTO.getCodigo());
 
-        return mapearDto(nuevoCatalogo);
+        if(exist)
+           throw new ResourceRepeatIdException("catalogo", "codigo", catalogoDTO.getCodigo());
+
+        Catalogo catalogo = mapearEntidad(catalogoDTO);
+        catalogo = catalogoRepository.save(catalogo);
+
+        return mapearDto(catalogo);
     }
 
     @Override
@@ -35,7 +40,7 @@ public class CatalogoServiceImp implements CatalogoService {
     }
 
     @Override
-    public CatalogoDTO obtenerCatalogoPorId(Long id) 
+    public CatalogoDTO obtenerCatalogoPorId(String id) 
     {
         Catalogo catalogo = catalogoRepository.findById(id)
         .orElseThrow(()->new ResourceNotFoundException("Catalogo", "id", id));
@@ -43,14 +48,23 @@ public class CatalogoServiceImp implements CatalogoService {
     }
 
     @Override
-    public CatalogoDTO editarCatalogo(Long id, CatalogoDTO catalogoDTO) 
+    public CatalogoDTO editarCatalogo(String id, CatalogoDTO catalogoDTO) 
     {
-        // TODO Auto-generated method stub
-        return null;
+        if(catalogoDTO.getCodigo()!= null)
+        throw new ResourceBadRequestException("Body no cumple con los requisitos asegurece de no enviar el codigo");
+
+        Catalogo catalogo = catalogoRepository.findById(id)
+        .orElseThrow(()-> new ResourceNotFoundException("catalogo","codigo", id));
+
+        Catalogo catalogEdit = mapearEntidad(catalogoDTO);
+        catalogEdit.setCodigo(id);
+        catalogo = catalogoRepository.save(catalogEdit);
+
+        return mapearDto(catalogo);
     }
 
     @Override
-    public void eliminarCatalogoPorId(Long id) 
+    public void eliminarCatalogoPorId(String id) 
     {
         catalogoRepository.findById(id)
         .orElseThrow(()-> new ResourceNotFoundException("catalogo", "id", id));
@@ -68,7 +82,6 @@ public class CatalogoServiceImp implements CatalogoService {
     private CatalogoDTO mapearDto(Catalogo catalogo)
     {
         CatalogoDTO catalogoDTO = new CatalogoDTO();
-        catalogoDTO.setId(catalogo.getId());
         catalogoDTO.setCodigo(catalogo.getCodigo());
         catalogoDTO.setTipo(catalogo.getTipo());
         catalogoDTO.setValor(catalogo.getValor());
@@ -79,7 +92,6 @@ public class CatalogoServiceImp implements CatalogoService {
     private Catalogo mapearEntidad(CatalogoDTO catalogoDTO)
     {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(catalogoDTO.getId());
         catalogo.setCodigo(catalogoDTO.getCodigo());
         catalogo.setTipo(catalogoDTO.getTipo());
         catalogo.setValor(catalogoDTO.getValor());
