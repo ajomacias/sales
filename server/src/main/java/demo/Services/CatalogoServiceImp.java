@@ -1,6 +1,7 @@
 package demo.Services;
 
 import demo.Dto.CatalogoDTO;
+import demo.Dto.CatalogoRespuesta;
 import demo.Repository.CatalogoRepository;
 import demo.models.Catalogo;
 import demo.exception.*;
@@ -11,6 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 @Service
 public class CatalogoServiceImp implements CatalogoService {
@@ -32,11 +36,20 @@ public class CatalogoServiceImp implements CatalogoService {
     }
 
     @Override
-    public List<CatalogoDTO> obtenerCatalogos() 
+    public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina) 
     {
-        List<Catalogo> catalogoa = catalogoRepository.findAll();
+        Pageable pageable = PageRequest.of(numeroPagina,tamañoPagina);
+        Page<Catalogo> catalogos = catalogoRepository.findAll(pageable);
+        List<Catalogo> catalogosList = catalogos.getContent();
+        List<CatalogoDTO> catalogosDtoList = catalogosList.stream().map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
+        CatalogoRespuesta catalogoRespuesta = new CatalogoRespuesta();
+        catalogoRespuesta.setContenido(catalogosDtoList);
+        catalogoRespuesta.setNumeroPagina(catalogos.getNumber());
+        catalogoRespuesta.setTamañoPagina(catalogos.getSize());
+        catalogoRespuesta.setTotalElementos(catalogos.getTotalElements());
+        catalogoRespuesta.setUltimo(catalogos.isLast());
 
-        return catalogoa.stream().map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
+        return catalogoRespuesta;
     }
 
     @Override
@@ -99,5 +112,4 @@ public class CatalogoServiceImp implements CatalogoService {
         return catalogo;
     }
 
-    
 }

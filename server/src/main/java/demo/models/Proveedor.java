@@ -1,3 +1,4 @@
+/*
 package demo.models;
 
 import javax.persistence.*;
@@ -36,3 +37,4 @@ public class Proveedor {
 
     
 }
+*/

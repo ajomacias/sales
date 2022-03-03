@@ -3,6 +3,7 @@ package demo.controllers;
 import org.springframework.web.bind.annotation.*;
 
 import demo.Dto.CatalogoDTO;
+import demo.Dto.CatalogoRespuesta;
 import demo.Services.CatalogoServiceImp;
 import demo.exception.Succes;
 
@@ -18,11 +19,16 @@ public class CatalogoController {
 
     @Autowired CatalogoServiceImp catalogoServiceImp;
 
-    @GetMapping({"","/"})
-    public List<CatalogoDTO> obtenerCatalogos()
+    @GetMapping
+    public ResponseEntity<CatalogoRespuesta> obtenerCatalogos(
+        @RequestParam(value = "numeroPa",defaultValue="0",required=false) int numeroPa,
+        @RequestParam(value = "pageSize", defaultValue = "10", required = false) int numeroSize
+    )
     {
-        return catalogoServiceImp.obtenerCatalogos();
+        return new ResponseEntity<>(catalogoServiceImp.obtenerCatalogos(numeroPa, numeroSize),HttpStatus.OK);
+       
     }
+
     @GetMapping("/get/{cod}")
     public ResponseEntity<CatalogoDTO> obtenerCatalogos(@PathVariable(name = "cod") String id)
     {
@@ -33,12 +39,14 @@ public class CatalogoController {
     {
         return catalogoServiceImp.obtenerCatalogosPorTipos(tipo);
     }
+
     @PostMapping("/create")
     public ResponseEntity<CatalogoDTO> crearCatalogo(@RequestBody CatalogoDTO catalogoDTO)
     {
         return new ResponseEntity<>(catalogoServiceImp.crearCatalogo(catalogoDTO),HttpStatus.OK);
 
     }
+    
     @PutMapping("/edit/{co}")
     public ResponseEntity<CatalogoDTO> editarCatalogo(@PathVariable(name = "co") String id, @RequestBody CatalogoDTO  catalogoDTO)
     {

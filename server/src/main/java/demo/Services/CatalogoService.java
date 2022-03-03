@@ -1,13 +1,14 @@
 package demo.Services;
 
 import demo.Dto.CatalogoDTO; 
+import demo.Dto.CatalogoRespuesta;
 import java.util.List;
 
 public interface CatalogoService {
 
     public CatalogoDTO crearCatalogo(CatalogoDTO catalogoDTO);
 
-    public List<CatalogoDTO> obtenerCatalogos();
+    public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina);
 
     public CatalogoDTO obtenerCatalogoPorId(String id);
     
