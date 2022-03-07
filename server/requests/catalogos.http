@@ -1,5 +1,5 @@
 #####
-GET http://localhost:8888/api/catalogos
+GET http://localhost:8888/api/catalogos?nuPag=0&pagSize=10&sortBy=codigo&sortDir=asc
 
 #####
 GET http://localhost:8888/api/catalogos/c/prueba_api
@@ -13,12 +13,12 @@ POST http://localhost:8888/api/catalogos/create
 Content-Type:application/json
 
 {
-    "codigo":"PRUBAP2",
-    "valor":"api",
-    "tipo":"prueba_api"
+    "codigo":"PRU1",
+    "valor":"paraaa",
+    "tipo":"tipo_prueba"
 }
 ####
-PUT  http://localhost:8888/api/catalogos/edit/PRUBAP2
+PUT  http://localhost:8888/api/catalogos/edit/PRU1
 Content-Type: application/json
 
 {

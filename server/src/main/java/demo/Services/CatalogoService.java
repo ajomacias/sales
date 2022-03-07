@@ -8,7 +8,7 @@ public interface CatalogoService {
 
     public CatalogoDTO crearCatalogo(CatalogoDTO catalogoDTO);
 
-    public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina);
+    public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina,String sortBy,String sortDir);
 
     public CatalogoDTO obtenerCatalogoPorId(String id);
     

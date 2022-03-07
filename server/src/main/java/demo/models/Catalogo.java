@@ -1,5 +1,8 @@
 package demo.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.SQLDelete;
@@ -17,11 +20,11 @@ import lombok.Data;
 @Data
 public class Catalogo{
     @Id()
-    @Column(name="codigo",columnDefinition = "character varying",length = 140,nullable = false)
+    @Column(name="codigo",columnDefinition = "character varying(140)",nullable = false)
     private String codigo;
-    @Column(name="valor",columnDefinition = "character varying",length = 40,nullable = false)
+    @Column(name="valor",columnDefinition = "character varying(40)",nullable = false)
     private String valor;
-    @Column(name="tipo",columnDefinition="character varying", length= 70,nullable=false)
+    @Column(name="tipo",columnDefinition="character varying(70)",nullable=false)
     private String tipo;
     @Column(name="eliminado",columnDefinition="boolean default false")
     private boolean eliminado;

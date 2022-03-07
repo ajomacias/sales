@@ -16,5 +16,5 @@ public interface CatalogoRepository extends JpaRepository<Catalogo,String>
 
     
     @Query(value =SELECT_BY_CATEGORY ,nativeQuery = true)
-    public List<Catalogo> getByType(@Param("tipo") String tipo);
+    public List<Catalogo> findByType(@Param("tipo") String tipo);
 }

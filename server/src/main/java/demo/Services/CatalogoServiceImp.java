@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -36,9 +37,10 @@ public class CatalogoServiceImp implements CatalogoService {
     }
 
     @Override
-    public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina) 
+    public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina,String sortBy,String sortDir) 
     {
-        Pageable pageable = PageRequest.of(numeroPagina,tamañoPagina);
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(numeroPagina,tamañoPagina,sort);
         Page<Catalogo> catalogos = catalogoRepository.findAll(pageable);
         List<Catalogo> catalogosList = catalogos.getContent();
         List<CatalogoDTO> catalogosDtoList = catalogosList.stream().map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
@@ -47,6 +49,7 @@ public class CatalogoServiceImp implements CatalogoService {
         catalogoRespuesta.setNumeroPagina(catalogos.getNumber());
         catalogoRespuesta.setTamañoPagina(catalogos.getSize());
         catalogoRespuesta.setTotalElementos(catalogos.getTotalElements());
+        catalogoRespuesta.setTotalPaginas(catalogos.getTotalPages());
         catalogoRespuesta.setUltimo(catalogos.isLast());
 
         return catalogoRespuesta;
@@ -88,7 +91,7 @@ public class CatalogoServiceImp implements CatalogoService {
     
     public List<CatalogoDTO> obtenerCatalogosPorTipos(String tipo)
     {
-        List<Catalogo> catalogos = catalogoRepository.getByType(tipo);
+        List<Catalogo> catalogos = catalogoRepository.findByType(tipo);
         return catalogos.stream().map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
     }
 
@@ -111,5 +114,4 @@ public class CatalogoServiceImp implements CatalogoService {
 
         return catalogo;
     }
-
 }

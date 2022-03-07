@@ -6,6 +6,7 @@ import demo.Dto.CatalogoDTO;
 import demo.Dto.CatalogoRespuesta;
 import demo.Services.CatalogoServiceImp;
 import demo.exception.Succes;
+import demo.utils.AppConstantes;
 
 import java.util.List;
 
@@ -21,11 +22,13 @@ public class CatalogoController {
 
     @GetMapping
     public ResponseEntity<CatalogoRespuesta> obtenerCatalogos(
-        @RequestParam(value = "numeroPa",defaultValue="0",required=false) int numeroPa,
-        @RequestParam(value = "pageSize", defaultValue = "10", required = false) int numeroSize
+        @RequestParam(value = "nuPag" , defaultValue=AppConstantes.NUM_PAG_DF,required=false) int numeroPa,
+        @RequestParam(value = "pagSize", defaultValue = AppConstantes.NUM_ITEMS_DF, required = false) int numeroSize,
+        @RequestParam(value = "sortBy", defaultValue =  AppConstantes.CAMP_ORDER_DF,required = false ) String sortBy,
+        @RequestParam(value= "sortDir", defaultValue = AppConstantes.ORDER_ITEMS_DF, required = false) String sortDir
     )
     {
-        return new ResponseEntity<>(catalogoServiceImp.obtenerCatalogos(numeroPa, numeroSize),HttpStatus.OK);
+        return new ResponseEntity<>(catalogoServiceImp.obtenerCatalogos(numeroPa, numeroSize,sortBy,sortDir),HttpStatus.OK);
        
     }
 

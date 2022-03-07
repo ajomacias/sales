@@ -1,0 +1,10 @@
+#####
+GET http://localhost:8888/api/proveedores
+
+####
+POST http://localhost:8888/api/proveedores/TPPRV1
+Content-Type:application/json
+
+{
+ "nombre":"EcMueble"
+}
