@@ -12,7 +12,7 @@ import lombok.Data;
     @UniqueConstraint(columnNames={"codigo"}),
     @UniqueConstraint(columnNames={"valor"})
 })
-@SQLDelete(sql="UPDATE catalogo.catalogos SET eliminado=true WHERE _id=?")
+@SQLDelete(sql="UPDATE catalogo.catalogos SET eliminado=true WHERE codigo=?")
 @Where(clause = "eliminado=false")
 @Data
 public class Catalogo{

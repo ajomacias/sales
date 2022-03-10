@@ -2,13 +2,13 @@ package demo.Services;
 
 import java.util.List;
 import demo.Dto.ProveedorDTO;
-import demo.models.Proveedor;
+import demo.Dto.ProveedorRespuesta;
 
 public interface ProveedorService {
 
-    public List<ProveedorDTO> obtenerProveedores();
+    public ProveedorRespuesta obtenerProveedores(int nuPag, int sizePag, String sortBy, String sortDir);
 
-    public Proveedor obtenerProveedorPorId(Long id);
+    public ProveedorDTO obtenerProveedorPorId(Long id);
 
     public ProveedorDTO crearProveedor(ProveedorDTO proveedorDTO, String codigoCatalogo);
 

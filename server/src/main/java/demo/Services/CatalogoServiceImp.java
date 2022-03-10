@@ -5,6 +5,7 @@ import demo.Dto.CatalogoRespuesta;
 import demo.Repository.CatalogoRepository;
 import demo.models.Catalogo;
 import demo.exception.*;
+import static demo.utils.Funciones.obtenerPageable;
 
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 @Service
 public class CatalogoServiceImp implements CatalogoService {
@@ -39,11 +39,13 @@ public class CatalogoServiceImp implements CatalogoService {
     @Override
     public CatalogoRespuesta obtenerCatalogos(int numeroPagina, int tamañoPagina,String sortBy,String sortDir) 
     {
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(numeroPagina,tamañoPagina,sort);
+        Pageable pageable = obtenerPageable(numeroPagina, tamañoPagina, sortBy, sortDir);
+
         Page<Catalogo> catalogos = catalogoRepository.findAll(pageable);
-        List<Catalogo> catalogosList = catalogos.getContent();
-        List<CatalogoDTO> catalogosDtoList = catalogosList.stream().map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
+        
+        List<CatalogoDTO> catalogosDtoList = catalogos.getContent().stream()
+        .map(catalogo->mapearDto(catalogo)).collect(Collectors.toList());
+        
         CatalogoRespuesta catalogoRespuesta = new CatalogoRespuesta();
         catalogoRespuesta.setContenido(catalogosDtoList);
         catalogoRespuesta.setNumeroPagina(catalogos.getNumber());
@@ -67,7 +69,7 @@ public class CatalogoServiceImp implements CatalogoService {
     public CatalogoDTO editarCatalogo(String id, CatalogoDTO catalogoDTO) 
     {
         if(catalogoDTO.getCodigo()!= null)
-        throw new ResourceBadRequestException("Body no cumple con los requisitos asegurece de no enviar el codigo");
+        throw new SalesException("Body no cumple con los requisitos asegurece de no enviar el codigo",HttpStatus.BAD_REQUEST);
 
         Catalogo catalogo = catalogoRepository.findById(id)
         .orElseThrow(()-> new ResourceNotFoundException("catalogo","codigo", id));

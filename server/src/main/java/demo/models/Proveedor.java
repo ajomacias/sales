@@ -10,12 +10,13 @@ import lombok.Data;
 
 @Entity
 @Table(name = "proveedor",schema="persona")
-@SQLDelete(sql="UPDATE SET persona.personas eliminado=true WHERE id=?")
+@SQLDelete(sql="UPDATE persona.proveedor SET eliminado=true WHERE _id=?")
 @Where(clause="eliminado=false")
 @Data
 public class Proveedor { 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "_id")
     private Long id;
     @Column(columnDefinition="character varying(120)", nullable = false, unique = true)
     private String nombre;
@@ -30,6 +31,6 @@ public class Proveedor {
     private String telefono;
     @Column(columnDefinition="character varying(220)", nullable = true, unique = true)
     private String direccion;
-    @Column(nullable = false)
+    @Column(name = "eliminado" ,nullable = false)
     private boolean eliminado; 
 }

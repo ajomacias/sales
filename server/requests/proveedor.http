@@ -1,10 +1,36 @@
 #####
 GET http://localhost:8888/api/proveedores
 
+#####
+GET http://localhost:8888/api/proveedores/2
+
+#####
+GET http://localhost:8888/api/proveedores/code/TIPPR1
+
 ####
-POST http://localhost:8888/api/proveedores/TPPRV1
+PUT http://localhost:8888/api/proveedores
 Content-Type:application/json
 
 {
- "nombre":"EcMueble"
+
+ "id":"4",
+ "nombre":"latinPescado",
+ "categoria":"TIPPR1",
+ "telefono":"0981942317",
+ "ruc":"200202202",
+ "correo":"latinPescado@latam.la.es",
+ "direccion":"vecino de terminal quitumbe"
+
 }
+
+####
+POST http://localhost:8888/api/proveedores/NOVAL
+Content-Type:application/json
+
+{
+ "nombre":"caco",
+ "telefono":"0971942317"
+}
+
+#####
+DELETE  http://localhost:8888/api/proveedores/2

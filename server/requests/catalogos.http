@@ -5,20 +5,20 @@ GET http://localhost:8888/api/catalogos?nuPag=0&pagSize=10&sortBy=codigo&sortDir
 GET http://localhost:8888/api/catalogos/c/prueba_api
 #####
 GET http://localhost:8888/api/catalogos/get/PRUBAP2
-#####
-DELETE http://localhost:8888/api/catalogos/delete/8
+####
+DELETE http://localhost:8888/api/catalogos/delete/NOVAL
 
 #####
 POST http://localhost:8888/api/catalogos/create
 Content-Type:application/json
 
 {
-    "codigo":"PRU1",
-    "valor":"paraaa",
-    "tipo":"tipo_prueba"
+    "codigo":"TIPPR2",
+    "valor":"muebles",
+    "tipo":"tipo_proveedor"
 }
 ####
-PUT  http://localhost:8888/api/catalogos/edit/PRU1
+PUT http://localhost:8888/api/catalogos/edit/
 Content-Type: application/json
 
 {
